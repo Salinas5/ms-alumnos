@@ -6,7 +6,8 @@ class AlumnoRepository:
     def crear_alumno(alumno) -> Alumno:
         db.session.add(alumno)
         db.session.commit()
-    
+        return alumno
+
     @staticmethod
     def buscar_todos() -> list[Alumno]:
         return Alumno.query.all()
@@ -16,7 +17,7 @@ class AlumnoRepository:
         return Alumno.query.get(alumno_id)
     
     @staticmethod
-    def actualizar_alumno(alumno_id, alumno) -> Alumno | None:
+    def actualizar_alumno(alumno) -> Alumno | None:
         db.session.merge(alumno)
         db.session.commit()
         return alumno
