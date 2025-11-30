@@ -13,7 +13,7 @@ class AlumnoRepository:
         return Alumno.query.all()
     
     @staticmethod
-    def buscar_por_id(alumno_id) -> Alumno | None:
+    def buscar_alumno_id(alumno_id) -> Alumno | None:
         return Alumno.query.get(alumno_id)
     
     @staticmethod
@@ -23,8 +23,8 @@ class AlumnoRepository:
         return alumno
     
     @staticmethod
-    def borrar_por_id(alumno_id: int) -> bool:
-        alumno = db.session.query(Alumno).filter_by(id=id).first()
+    def borrar_alumno_id(alumno_id: int) -> bool:
+        alumno = db.session.query(Alumno).filter_by(alumno_id=alumno_id).first()
         if not alumno:
             return False
         db.session.delete(alumno)
