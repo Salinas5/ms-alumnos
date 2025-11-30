@@ -1,5 +1,5 @@
 from app import db
-from app.models import TipoDocumento
+from app.models.tipo_documento import TipoDocumento
 
 class TipoDocumentoRepository:
 
@@ -10,8 +10,8 @@ class TipoDocumentoRepository:
         return tipo_documento
 
     @staticmethod
-    def buscar_por_id(dni: int) -> TipoDocumento | None:
-        return TipoDocumento.query.get(dni)
+    def buscar_por_id(id: int) -> TipoDocumento | None:
+        return TipoDocumento.query.get(id)
 
     @staticmethod
     def buscar_todos() -> list[TipoDocumento]:
@@ -24,9 +24,10 @@ class TipoDocumentoRepository:
         return tipo_documento_existente
 
     @staticmethod
-    def borrar_por_id(dni: int) -> bool:
-        tipo_documento = TipoDocumento.query.get(dni)
+    def borrar_por_id(id: int) -> bool:
+        tipo_documento = TipoDocumento.query.get(id)
         if not tipo_documento:
-            return None
+            return False
         db.session.delete(tipo_documento)
         db.session.commit()
+        return True
