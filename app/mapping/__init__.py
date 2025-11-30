@@ -1,1 +1,2 @@
 from .alumno_schema import AlumnoSchema
+from .tipo_documento_schema import TipoDocumentoSchema

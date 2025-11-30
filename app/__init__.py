@@ -5,15 +5,11 @@ from flask_sqlalchemy import SQLAlchemy
 from app.config.cache_config import cache_config
 from app.config.config import factory
 from flask_marshmallow import Marshmallow
-from flask_migrate import Migrate
-from flask_hashids import Hashids
 from app.route import RouteApp
 from flask_caching import Cache
 
 db = SQLAlchemy()
 ma = Marshmallow()
-migrate = Migrate()
-hashids = Hashids()
 cache = Cache()
 
 def create_app() -> Flask:

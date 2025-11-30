@@ -1,1 +1,2 @@
 from .alumno_service import AlumnoService
+from .tipo_documento_service import TipoDocumentoService
