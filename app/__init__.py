@@ -24,7 +24,6 @@ def create_app() -> Flask:
     app.config.from_object(f)
     
     db.init_app(app)
-    hashids.init_app(app)
     cache.init_app(app, config=cache_config)
     route = RouteApp()
     route.init_app(app)
