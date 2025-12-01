@@ -8,9 +8,7 @@ class AlumnoService:
     @staticmethod
     def crear_alumno(alumno: Alumno) -> Alumno:
         nuevo_alumno = AlumnoRepository.crear_alumno(alumno)
-        # Limpiar cache relacionado
         cache.delete("alumnos_todos")
-        cache.delete(f"alumno_{nuevo_alumno.alumno_id}")
         return nuevo_alumno
     
     @staticmethod
@@ -35,7 +33,8 @@ class AlumnoService:
         alumno = cache.get(cache_key)
         if alumno is None:
             alumno = AlumnoRepository.buscar_alumno_id(alumno_id)
-            cache.set(cache_key, alumno, timeout=60)
+            if alumno:
+                cache.set(cache_key, alumno, timeout=60)
         return alumno
 
     @staticmethod
