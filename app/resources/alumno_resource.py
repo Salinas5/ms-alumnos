@@ -53,4 +53,4 @@ def delete_alumno(alumno_id):
     resultado = AlumnoService.borrar_alumno_id(alumno_id)
     if not resultado:
         return jsonify({'error': 'Alumno no encontrado'}), 404
-    return jsonify({'message': 'Alumno eliminado correctamente'}), 200
+    return jsonify({'message': 'Alumno eliminado correctamente'}), 200
