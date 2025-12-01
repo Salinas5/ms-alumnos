@@ -11,13 +11,13 @@ class TipoDocumentoService:
         return nuevo_tipo_documento
 
     @staticmethod
-    def buscar_por_id(dni: int) -> TipoDocumento | None:
+    def buscar_por_id(tipo_documento_id: int) -> TipoDocumento | None:
         cache_key = f"tipo_documento_{tipo_documento_id}"
         tipo_documento = cache.get(cache_key)
-        if not tipo_documento:
+        if tipo_documento is None:
             tipo_documento = TipoDocumentoRepository.buscar_por_id(tipo_documento_id)
-
-            cache.set(cache_key, tipo_documento, timeout=60)
+            if tipo_documento:
+                cache.set(cache_key, tipo_documento, timeout=60)
         return tipo_documento
 
     @staticmethod
@@ -32,6 +32,7 @@ class TipoDocumentoService:
     @staticmethod
     def actualizar(tipo_documento: TipoDocumento) -> TipoDocumento | None:
         resultado = TipoDocumentoRepository.actualizar(tipo_documento)
+        if resultado:
         cache.delete(f"tipo_documento_{tipo_documento.id}")
         cache.delete("tipos_documento_todos")
         return resultado
