@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-
 from dotenv import load_dotenv
 
 basedir = os.path.abspath(Path(__file__).parents[2])
@@ -10,12 +9,9 @@ load_dotenv(os.path.join(basedir, '.env'))
 cache_config={
     'CACHE_TYPE': 'RedisCache', 
     'CACHE_DEFAULT_TIMEOUT': 300, 
-    'CACHE_REDIS_HOST': os.environ.get('REDIS_HOST'), 
-    'CACHE_REDIS_PORT': os.environ.get('REDIS_PORT'), 
-    'CACHE_REDIS_DB': os.environ.get('REDIS_DB'), 
-    'CACHE_REDIS_PASSWORD': os.environ.get('REDIS_PASSWORD'), 
+    'CACHE_REDIS_HOST': os.environ.get('REDIS_HOST', 'localhost'), 
+    'CACHE_REDIS_PORT': int(os.environ.get('REDIS_PORT', 6379)), 
+    'CACHE_REDIS_DB': int(os.environ.get('REDIS_DB', 0)), 
+    'CACHE_REDIS_PASSWORD': os.environ.get('REDIS_PASSWORD', None), 
     'CACHE_KEY_PREFIX': 'flask_' 
 }
-password = os.environ.get('REDIS_PASSWORD')
-if password:  # Para que no pida password redis
-    cache_config['CACHE_REDIS_PASSWORD'] = password
