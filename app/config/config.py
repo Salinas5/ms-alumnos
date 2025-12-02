@@ -1,4 +1,4 @@
-from asyncio.log import logger
+import logging
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -10,9 +10,6 @@ class Config(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
-    HASHIDS_MIN_LENGTH = int(os.environ.get('HASHIDS_MIN_LENGTH', 8))
-    HASHIDS_ALPHABET = os.environ.get('HASHIDS_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
-    HASHIDS_SALT = os.environ.get('HASHIDS_SALT', 'default_salt')
     SECRET_KEY = os.environ.get('SECRET_KEY', 'default_secret_key')
 
     @staticmethod
@@ -25,10 +22,6 @@ class TestConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get( "DATABASE_URL", 
         "sqlite:///test.db")
-    # Valores para Hashids que no dependan del .env
-    HASHIDS_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-    HASHIDS_MIN_LENGTH = 8
-    HASHIDS_SALT = 'testing_salt'
     
 class DevelopmentConfig(Config):
     TESTING = True
