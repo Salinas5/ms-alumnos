@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from app import db
+from app.models.tipo_documento import TipoDocumento
+from datetime import date
 
 @dataclass
 class Alumno(db.Model):
@@ -10,10 +12,10 @@ class Alumno(db.Model):
     nombre: str = db.Column(db.String(100), nullable=False)
     apellido: str = db.Column(db.String(100), nullable=False)
     
-    
-    fechaIngreso: str = db.Column(db.String(10), nullable=False)
-    fechaNacimiento: str = db.Column(db.String(10), nullable=False)
-    
+
+    fechaIngreso: date = db.Column(db.Date, nullable=False)
+    fechaNacimiento: date = db.Column(db.Date, nullable=False)
+
     tipo_documento_id: int = db.Column(db.Integer, db.ForeignKey('tipo_documento.id'), nullable=False)
     tipo_documento = db.relationship('TipoDocumento')
 
