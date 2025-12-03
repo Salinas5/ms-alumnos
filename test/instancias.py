@@ -2,8 +2,8 @@ from datetime import date
 from app.models import Alumno, TipoDocumento
 from app.services import AlumnoService, TipoDocumentoService  
 
-def nuevotipodocumento(dni='44305103', tipo='DNI'):
-    tipo_documento = TipoDocumento(dni=dni)
+def nuevotipodocumento(sigla='DNI', nombre = 'Documento Nacional de Identidad'):
+    tipo_documento = TipoDocumento(sigla = sigla, nombre = nombre)
     TipoDocumentoService.crear(tipo_documento)
     return tipo_documento
 
