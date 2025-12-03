@@ -11,3 +11,15 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.py[cod]
+*$py.class
+
+*.log
+
+.vscode/
+.idea/
+
+*.lock
+uv.lock
+
+*.sqlite3
