@@ -42,9 +42,9 @@ def update_alumno(alumno_id):
         for key, value in data.items():
             setattr(alumno, key, value)
         alumno = AlumnoService.actualizar_alumno(alumno)
+        return jsonify(alumno_schema.dump(alumno)), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-    return jsonify(alumno_schema.dump(alumno)), 200
 
 @alumno_bp.route('/<int:alumno_id>', methods=['DELETE'])
 def delete_alumno(alumno_id):
