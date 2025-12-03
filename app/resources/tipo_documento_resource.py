@@ -11,32 +11,41 @@ tipo_documento_schema = TipoDocumentoSchema()
 @tipo_documento_bp.route('/', methods=['POST'])
 def crear():
     data = request.get_json()
-    tipo_documento = TipoDocumentoService.crear(**data)
-    return jsonify(tipo_documento_schema.dump(tipo_documento)), 201
+    try:
+        # Convertimos JSON a objeto
+        nuevo_tipo = tipo_documento_schema.load(data)
+        # Lo pasamos al servicio
+        resultado = TipoDocumentoService.crear(nuevo_tipo)
+        return jsonify(tipo_documento_schema.dump(resultado)), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
-@tipo_documento_bp.route('/<int:tipo_documento_id>', methods=['GET'])
-def buscar_por_id(tipo_documento_id):
-    tipo = TipoDocumentoService.buscar_por_id(tipo_documento_id)
+@tipo_documento_bp.route('/<int:id>', methods=['GET'])
+def buscar_por_id(id):
+    tipo = TipoDocumentoService.buscar_por_id(id)
     if tipo:
-        return jsonify(tipo_documento_schema.dump(tipo))
-    return jsonify({'message': 'Tipo de documento not found'}), 404
+        return jsonify(tipo_documento_schema.dump(tipo)), 200
+    return jsonify({'message': 'Tipo de documento no encontrado'}), 404
 
 @tipo_documento_bp.route('/', methods=['GET'])
 def buscar_todos():
     tipos = TipoDocumentoService.buscar_todos()
-    return jsonify(tipo_documentos_schema.dump(tipos))
+    return jsonify(tipo_documentos_schema.dump(tipos)), 200
 
-@tipo_documento_bp.route('/<int:tipo_documento_id>', methods=['PUT'])
-def actualizar(tipo_documento_id):
+@tipo_documento_bp.route('/<int:id>', methods=['PUT'])
+def actualizar(id):
     data = request.get_json()
-    actualizado = TipoDocumentoService.actualizar(tipo_documento_id, **data)
-    if actualizado:
-        return jsonify(tipo_documento_schema.dump(actualizado))
-    return jsonify({'message': 'Tipo de documento not found'}), 404
+    try:
+        actualizado = TipoDocumentoService.actualizar(id, data)
+        if actualizado:
+            return jsonify(tipo_documento_schema.dump(actualizado)), 200
+        return jsonify({'message': 'Tipo de documento no encontrado'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 @tipo_documento_bp.route('/<int:tipo_documento_id>', methods=['DELETE'])
-def borrar_por_id(tipo_documento_id):
-    borrado = TipoDocumentoService.borrar_por_id(tipo_documento_id)
+def borrar_por_id(id):
+    borrado = TipoDocumentoService.borrar_por_id(id)
     if borrado:
-        return jsonify({'message': 'Tipo de documento deleted successfully'})
-    return jsonify({'message': 'Tipo de documento not found'}), 404
+        return jsonify({'message': 'Tipo de documento eliminado exitosamente'}), 200
+    return jsonify({'message': 'Tipo de documento no encontrado'}), 404
