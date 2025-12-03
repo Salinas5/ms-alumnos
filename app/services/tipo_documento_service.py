@@ -4,43 +4,50 @@ from app import cache
 
 class TipoDocumentoService:
     @staticmethod
-    def crear(tipo_documento) -> TipoDocumento:
-        nuevo_tipo_documento = TipoDocumentoRepository.crear(tipo_documento)
+    def crear(tipo_documento: TipoDocumento) -> TipoDocumento:
+        nuevo = TipoDocumentoRepository.crear(tipo_documento)
         cache.delete("tipos_documento_todos")
-        cache.delete(f"tipo_documento_{nuevo_tipo_documento.id}")
-        return nuevo_tipo_documento
+        cache.delete(f "tipo_documento_{nuevo.id}")
+        return nuevo
 
     @staticmethod
-    def buscar_por_id(tipo_documento_id: int) -> TipoDocumento | None:
-        cache_key = f"tipo_documento_{tipo_documento_id}"
-        tipo_documento = cache.get(cache_key)
-        if tipo_documento is None:
-            tipo_documento = TipoDocumentoRepository.buscar_por_id(tipo_documento_id)
-            if tipo_documento:
-                cache.set(cache_key, tipo_documento, timeout=60)
-        return tipo_documento
+    def buscar_por_id(id: int) -> TipoDocumento | None:
+        cache_key = f"tipo_documento_{id}"
+        tipo = cache.get(cache_key)
+        if not tipo:
+            tipo = TipoDocumentoRepository.buscar_por_id(id)
+            if tipo:
+                cache.set(cache_key, tipo, timeout=60)
+        return tipo
 
     @staticmethod
     def buscar_todos() -> list[TipoDocumento]:
-        cache_key = "tipos_documento_todos"
-        tipos_documento = cache.get(cache_key)
-        if tipos_documento is None:
-            tipos_documento = TipoDocumentoRepository.buscar_todos()
-            cache.set(cache_key, tipos_documento, timeout=60)
-        return tipos_documento
+        tipos = cache.get("tipos_documento_todos")
+        if not tipos:
+            tipos = TipoDocumentoRepository.buscar_todos()
+            cache.set("tipos_documento_todos", tipos, timeout=60)
+        return tipos
 
     @staticmethod
-    def actualizar(tipo_documento: TipoDocumento) -> TipoDocumento | None:
-        resultado = TipoDocumentoRepository.actualizar(tipo_documento)
+    def actualizar(id: int, datos:dict) -> TipoDocumento | None:
+        tipo = TipoDocumentoRepository.buscar_por_id(id)
+        if not tipo:
+            return None
+        # Actualizamos campos directamente
+        if 'nombre' in datos:
+            tipo.nombre = datos['nombre']
+        if 'sigla' in datos:
+            tipo.sigla = datos['sigla']
+        resultado = TipoDocumentoRepository.actualizar(tipo)
         if resultado:
-        cache.delete(f"tipo_documento_{tipo_documento.id}")
-        cache.delete("tipos_documento_todos")
+            cache.delete(f"tipo_documento_{id}")
+            cache.delete("tipos_documento_todos")
         return resultado
 
     @staticmethod
-    def borrar_por_id(tipo_documento_id: int) -> bool:
-        resultado = TipoDocumentoRepository.borrar_por_id(tipo_documento_id)
+    def borrar_por_id(id: int) -> bool:
+        resultado = TipoDocumentoRepository.borrar_por_id(id)
         if resultado:
-            cache.delete(f"tipo_documento_{tipo_documento_id}")
+            cache.delete(f"tipo_documento_{id}")
             cache.delete("tipos_documento_todos")
         return resultado
