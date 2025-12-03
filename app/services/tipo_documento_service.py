@@ -7,7 +7,7 @@ class TipoDocumentoService:
     def crear(tipo_documento: TipoDocumento) -> TipoDocumento:
         nuevo = TipoDocumentoRepository.crear(tipo_documento)
         cache.delete("tipos_documento_todos")
-        cache.delete(f "tipo_documento_{nuevo.id}")
+        cache.delete(f"tipo_documento_{nuevo.id}")
         return nuevo
 
     @staticmethod
