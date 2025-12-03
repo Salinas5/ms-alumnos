@@ -83,4 +83,4 @@ services:
             - "traefik.docker.network=mired" 
 networks:
     mired:
-    external: true
+        external: true

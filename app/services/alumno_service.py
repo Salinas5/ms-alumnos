@@ -1,5 +1,5 @@
 from app.repositories import AlumnoRepository
-from app import db, cache
+from app import cache
 from app.models import Alumno
 
 
