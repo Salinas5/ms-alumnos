@@ -25,7 +25,7 @@ def get_alumno(alumno_id):
 def create_alumno():
     data = request.get_json()
     try:
-        alumno = alumno_schema.load(data, partial=True)
+        alumno = alumno_schema.load(data, partial=False)
         alumno = AlumnoService.crear_alumno(alumno)
     except Exception as e:
         return jsonify({'error': str(e)}), 400

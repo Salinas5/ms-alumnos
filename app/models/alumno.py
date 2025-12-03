@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from app import db
-from app.models.tipo_documento import TipoDocumento
 from datetime import date
 
 @dataclass
