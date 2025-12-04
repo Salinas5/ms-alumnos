@@ -6,7 +6,7 @@ services:
         env_file:
         - ../.env
         deploy:
-            replicas: 5
+            replicas: 2
             update_config:
                 order: start-first
             restart_policy:

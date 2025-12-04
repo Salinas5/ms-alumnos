@@ -35,4 +35,4 @@ RUN chown -R flaskapp:flaskapp /home/flaskapp
 USER flaskapp
 
 EXPOSE 5000
-CMD ["granian", "--port", "5000", "--host", "0.0.0.0", "--http", "auto", "--workers", "4", "--blocking-threads", "4", "--backlog", "2048", "--interface", "wsgi", "wsgi:app"]
+CMD ["granian", "--port", "5000", "--host", "0.0.0.0", "--http", "auto", "--workers", "4", "--blocking-threads", "4", "--backlog", "2048", "--interface", "wsgi","wsgi:app"]
