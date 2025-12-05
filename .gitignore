@@ -21,3 +21,6 @@ __pycache__/
 
 
 *.sqlite3
+traefik/data/
+traefik/certs/
+mkcert.exe
