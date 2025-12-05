@@ -22,11 +22,11 @@ class AlumnoTestCase(unittest.TestCase):
     def test_crear_alumno(self):
         alumno = nuevoalumno()
         self.assertIsNotNone(alumno)
-        self.assertIsNotNone(alumno.nombre)
-        self.assertGreaterEqual(alumno.id, 1)
+        self.assertGreaterEqual(alumno.alumno_id, 1)
         self.assertEqual(alumno.nombre, 'Julian')
         self.assertEqual(alumno.apellido, 'Alvarez')
-        self.assertEqual(alumno.tipo_documento, 'DNI')
+        self.assertIsNotNone(alumno.tipo_documento)
+        self.assertEqual(alumno.tipo_documento.sigla, 'DNI')
         
     def test_buscar_alumno_id(self):
         alumno = nuevoalumno()
@@ -37,7 +37,7 @@ class AlumnoTestCase(unittest.TestCase):
         
     def test_buscar_todos(self):
         alumno1 = nuevoalumno()
-        tipodoc2 = nuevotipodocumento(dni='44305104', tipo='DNI')
+        tipodoc2 = nuevotipodocumento(sigla='LC', nombre='Libreta Civica')
         alumno2 = nuevoalumno(
             nombre = 'Julian',
             apellido = 'Alvarez',
@@ -63,8 +63,8 @@ class AlumnoTestCase(unittest.TestCase):
     
     def test_borrar_alumno_id(self):
         alumno = nuevoalumno()
-        resultado = AlumnoService.borrar_alumno_id(alumno.id)
+        resultado = AlumnoService.borrar_alumno_id(alumno.alumno_id)
         self.assertTrue(resultado)
-        busqueda = AlumnoService.buscar_alumno_id(alumno.id)
+        busqueda = AlumnoService.buscar_alumno_id(alumno.alumno_id)
         self.assertIsNone(busqueda)
         
