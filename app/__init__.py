@@ -17,19 +17,20 @@ def create_app() -> Flask:
     Using an Application Factory
     Ref: Book Flask Web Development Page 78
     """
-    app_context = os.getenv('FLASK_CONTEXT')
+    app_context = os.getenv('FLASK_CONTEXT', 'development')
     #https://flask.palletsprojects.com/en/stable/api/#flask.Flask
     app = Flask(__name__)
-    f = factory(app_context if app_context else 'development')
+    f = factory(app_context)
     app.config.from_object(f)
     
     db.init_app(app)
+    ma.init_app(app)
     cache.init_app(app, config=cache_config)
     route = RouteApp()
     route.init_app(app)
     
     @app.shell_context_processor    
     def ctx():
-        return {"app": app}
-    
+        return {"app": app, "db": db, "ma": ma}
+
     return app
