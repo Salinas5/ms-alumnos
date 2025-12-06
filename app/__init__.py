@@ -2,15 +2,12 @@ import logging
 from flask import Flask
 import os
 from flask_sqlalchemy import SQLAlchemy
-from app.config.cache_config import cache_config
 from app.config.config import factory
 from flask_marshmallow import Marshmallow
 from app.route import RouteApp
-from flask_caching import Cache
 
 db = SQLAlchemy()
 ma = Marshmallow()
-cache = Cache()
 
 def create_app() -> Flask:
     """
@@ -25,7 +22,6 @@ def create_app() -> Flask:
     
     db.init_app(app)
     ma.init_app(app)
-    cache.init_app(app, config=cache_config)
     route = RouteApp()
     route.init_app(app)
     
