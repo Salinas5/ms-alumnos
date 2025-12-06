@@ -17,6 +17,12 @@ class Config(object):
     REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
     REDIS_PORT = os.getenv('REDIS_PORT', '6379')
     REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
+    
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_size": 15,
+        "max_overflow": 30,
+        "pool_recycle": 3600
+    }
 
     @staticmethod
     def init_app(app):
