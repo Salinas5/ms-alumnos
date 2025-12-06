@@ -177,4 +177,9 @@ Para ejecutar el test (asumiendo que está en la raíz y se llama spike_tests.js
 
 k6 run spike_tests.js
 
+## Autores
+
+- [@agustin_salinas](https://github.com/Salinas5)
+- [@bustos_juliana](https://github.com/bustosjuliana)
+
 
