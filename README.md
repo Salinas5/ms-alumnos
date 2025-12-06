@@ -81,10 +81,10 @@ Agregar las siguientes líneas al final de
 
 -----------------------------
 ## Generar certificados (mkcert)
-- Descargar e instalar mkcert ( https://github.com/FiloSottile/mkcert).
+- Descargar e instalar mkcert ( https://github.com/FiloSottile/mkcert/releases/tag/v1.4.4).
 - Generar e instalar los certificados para el dominio:
 - .\mkcert -install
-- \.mkcert -cert-file traefik/certs/cert.pem -key-file traefik/certs/key.pem "universidad.localhost" "*.universidad.localhost" 127.0.0.1 ::1
+- .\mkcert -cert-file traefik/certs/cert.pem -key-file traefik/certs/key.pem "universidad.localhost" "*.universidad.localhost" 127.0.0.1 ::1
 ---------------------------
 ## Creacion de .env para Traefik
 
@@ -165,15 +165,6 @@ docker compose up --build
 Si la imagen ya existe:
 docker compose up
 
----------------------------
-## Endpoints del Microservicio
-Los endpoints del microservicio de alumnos están disponibles bajo el host https://alumnos.universidad.localhost y tienen el prefijo /api.
-- Alumnos (todos) GET https://alumnos.universidad.localhost/api/alumnos
-- Alumno por ID GET https://alumnos.universidad.localhost/api/alumnos/{alumno_id}
-- Nuevo Alumno POST https://alumnos.universidad.localhost/api/alumnos
-- Actualizar Alumno PUT https://alumnos.universidad.localhost/api/alumnos/{alumno_id}
-- Eliminar Alumno DELETE https://alumnos.universidad.localhost/api/alumnos/{alumno_id}
-
 -----------------------
 ## Tests de Rendimiento con k6
 El script de prueba de rendimiento ya se encuentra en spike_tests.js.
@@ -185,4 +176,5 @@ Ubicarse en la carpeta donde se encuentra el script de k6 (por ejemplo, la raíz
 Para ejecutar el test (asumiendo que está en la raíz y se llama spike_tests.js)
 
 k6 run spike_tests.js
+
 
